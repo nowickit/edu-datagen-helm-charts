@@ -1,0 +1,64 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cleaner
+rules:
+- apiGroups: [""]
+  resources: ["pods","namespaces"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cleaner
+subjects:
+- kind: ServiceAccount
+  name: cleaner
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: cleaner
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cleaner
+  namespace: default
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cleaner
+  namespace: default
+spec:
+  schedule: "5,35 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: cleaner
+          containers:
+          - name: cleaner
+            image: portainer/kubectl-shell:latest
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/bash
+            - -c
+            - "/home/cleanup-failed.sh && sh -c /home/cleanup-cleaner.sh"
+            volumeMounts:
+            - name: scriptconfig
+              subPath: cleanup-failed.sh
+              mountPath: /home/cleanup-failed.sh
+            - name: scriptconfig
+              subPath: cleanup-cleaner.sh
+              mountPath: /home/cleanup-cleaner.sh
+            - name: scriptconfig
+              subPath: date-script.sh
+              mountPath: /home/date-script.sh
+          restartPolicy: OnFailure
+          volumes:
+          - name: scriptconfig
+            configMap:
+              name: cleaner-config
+              defaultMode: 0777

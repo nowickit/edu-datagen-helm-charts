@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stress-ng-deployment
+  labels:
+    app:  stress-ng-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: stress-ng
+  template:
+    metadata:
+      labels:
+        app: stress-ng
+    spec:
+      priorityClassName: higher-priority
+      containers:
+      - name: stress-ng
+        image: colinianking/stress-ng
+        command:
+          - sh
+          - -cx 
+          - "while true ; do stress-ng --cpu 2 -v -t $(shuf -i 300-600 -n 1) ; sleep $(shuf -i 400-800 -n 1); done"
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: .5
+          limits:
+            cpu: 1
+      dnsPolicy: ClusterFirst
+      nodeSelector:
+        kubernetes.io/hostname: ip-10-0-0-128.us-west-2.compute.internal
+  strategy:
+    type: RollingUpdate
