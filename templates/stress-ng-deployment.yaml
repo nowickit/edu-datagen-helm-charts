@@ -1,3 +1,11 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: higher-priority
+value: 1000
+globalDefault: false
+description: "A class for higher-priority pods.  Used for stress-ng pods"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,6 +38,6 @@ spec:
             cpu: 1
       dnsPolicy: ClusterFirst
       nodeSelector:
-        kubernetes.io/hostname: ip-10-0-0-128.us-west-2.compute.internal
+        kubernetes.io/hostname: host-2
   strategy:
     type: RollingUpdate
