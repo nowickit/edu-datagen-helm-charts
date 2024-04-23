@@ -2,9 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-string_literals:
-  go_template: |
-    {{range .items}}{{.metadata.name}} {{.metadata.creationTimestamp}}{{"\n"}}{{end}}
+clicker:
+  replicas: 2
 
 replicaCount: 1
 

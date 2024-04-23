@@ -3,7 +3,7 @@ entries:
   splunk-k8s-datagen-chart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-04-22T19:36:57.612059232-07:00"
+    created: "2024-04-22T19:48:16.405180068-07:00"
     description: A Helm chart for Kubernetes
     digest: 9b4b07ee3f4a48a5c68b69db971c2ab5ce8c012648a878b351efa499c9e0784a
     name: splunk-k8s-datagen-chart
@@ -11,4 +11,4 @@ entries:
     urls:
     - https://alexpsplunk.github.io/edu-datagen-helm-charts/splunk-k8s-datagen-chart-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-22T19:36:57.611195455-07:00"
+generated: "2024-04-22T19:48:16.404393566-07:00"

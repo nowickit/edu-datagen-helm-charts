@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/name: astroshop-edu-o11y-frontendclicker
     app.kubernetes.io/part-of: astroshop-edu-o11y-frontendclicker
 spec:
-  replicas: 1
+  replicas: {{ .Values.clicker.replicas }}
   selector:
     matchLabels:
       opentelemetry.io/name: astroshop-edu-o11y-frontendclicker
