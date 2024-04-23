@@ -12,6 +12,7 @@ metadata:
   name: stress-ng-deployment
   labels:
     app:  stress-ng-deployment
+    app.kubernetes.io/instance: splunk-datagens
 spec:
   replicas: 5
   selector:
@@ -21,6 +22,7 @@ spec:
     metadata:
       labels:
         app: stress-ng
+        app.kubernetes.io/instance: splunk-datagens
     spec:
       priorityClassName: higher-priority
       containers:

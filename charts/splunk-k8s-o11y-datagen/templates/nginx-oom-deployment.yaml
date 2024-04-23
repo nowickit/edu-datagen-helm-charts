@@ -4,6 +4,8 @@ metadata:
   name: nginx-deployment
   labels:
     app: nginx
+    opentelemetry.io/name: nginx-oom-simulator
+    app.kubernetes.io/instance: splunk-datagens
 spec:
   replicas: 1
   selector:
@@ -12,6 +14,8 @@ spec:
   template:
     metadata:
       labels:
+        opentelemetry.io/name: nginx-oom-simulator
+        app.kubernetes.io/instance: splunk-datagens
         app: nginx
     spec:
       containers:

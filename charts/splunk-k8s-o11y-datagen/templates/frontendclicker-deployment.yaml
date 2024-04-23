@@ -1,26 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: astroshop-edu-o11y-frontendclicker
+  name: frontendclicker
   labels:
-    opentelemetry.io/name: astroshop-edu-o11y-frontendclicker
-    app.kubernetes.io/instance: astroshop-edu-o11y
+    opentelemetry.io/name: frontendclicker
+    app.kubernetes.io/instance: splunk-datagens
     app.kubernetes.io/component: frontendclicker
-    app.kubernetes.io/name: astroshop-edu-o11y-frontendclicker
-    app.kubernetes.io/part-of: astroshop-edu-o11y-frontendclicker
 spec:
   replicas: {{ .Values.clicker.replicas }}
   selector:
     matchLabels:
-      opentelemetry.io/name: astroshop-edu-o11y-frontendclicker
+      opentelemetry.io/name: frontendclicker
   template:
     metadata:
       labels:
-
-        opentelemetry.io/name: astroshop-edu-o11y-frontendclicker
-        app.kubernetes.io/instance: astroshop-edu-o11y
+        opentelemetry.io/name: frontendclicker
+        app.kubernetes.io/instance: splunk-datagens
         app.kubernetes.io/component: frontendclicker
-        app.kubernetes.io/name: astroshop-edu-o11y-frontendclicker
     spec:
       dnsPolicy: ClusterFirst
       serviceAccount: astroshop-edu-o11y
