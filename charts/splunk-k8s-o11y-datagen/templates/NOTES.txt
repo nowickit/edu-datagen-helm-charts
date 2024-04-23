@@ -6,9 +6,10 @@ Splunk workloads deployed to augment datagen.  The following workloads were crea
     - cleanup-failed-pods:        A cronjob to delete failed pods more than 30 minutes old
 
 
-Your class environment has been deployed to Kubernetes. Run the following command to
+Your class environment has been deployed to Kubernetes. You may run the following command to
 ensure that everything loaded.
     kubectl get pods -l app.kubernetes.io/instance=splunk-datagens
 
-There should be no pending or failed pods.
+There should be no pending or failed pods initially, although the nginx deployment
+is designed to fail periodically, beginning 5 minutes after starting.
 
