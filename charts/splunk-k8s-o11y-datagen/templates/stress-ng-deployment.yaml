@@ -31,15 +31,10 @@ spec:
         command:
           - sh
           - -cx 
-          - "while true ; do stress-ng --cpu 2 -v -t $(shuf -i 300-600 -n 1) ; sleep $(shuf -i 400-800 -n 1); done"
+          - "while true ; do stress-ng --cpu 40 -v -t $(shuf -i 300-600 -n 1) ; sleep $(shuf -i 400-800 -n 1); done"
         imagePullPolicy: IfNotPresent
-        resources:
-          requests:
-            cpu: .5
-          limits:
-            cpu: 1
       dnsPolicy: ClusterFirst
       nodeSelector:
-        kubernetes.io/hostname: host-2
+        stresstest: "true"
   strategy:
     type: RollingUpdate
