@@ -36,8 +36,6 @@ spec:
             value: "1"
           - name: SHOP_URL
             value: http://astroshop-edu-o11y-frontend:8080
-          - name: OTEL_RESOURCE_ATTRIBUTES
-            value: deployment.environment=astroshop
           resources:
             limits:
               memory: 768Mi
