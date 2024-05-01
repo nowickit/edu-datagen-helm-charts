@@ -10,6 +10,3 @@ Your class environment has been deployed to Kubernetes. You may run the followin
 ensure that everything loaded.
     kubectl get pods -l app.kubernetes.io/instance=splunk-datagens
 
-There should be no pending or failed pods initially, although the nginx deployment
-is designed to fail periodically, beginning 5 minutes after starting.
-
