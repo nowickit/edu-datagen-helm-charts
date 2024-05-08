@@ -39,6 +39,15 @@ spec:
     spec:
       template:
         spec:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: stresstest
+                    operator: NotIn
+                    values:
+                    - "true"
           serviceAccountName: cleaner
           containers:
           - name: cleaner
