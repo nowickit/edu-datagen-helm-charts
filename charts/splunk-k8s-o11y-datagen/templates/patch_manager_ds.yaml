@@ -5,6 +5,7 @@ metadata:
   namespace: default
   labels:
     app: patch-manager
+    app.kubernetes.io/instance: splunk-datagens
 spec:
   selector:
     matchLabels:
@@ -13,6 +14,7 @@ spec:
     metadata:
       labels:
         app: patch-manager
+        app.kubernetes.io/instance: splunk-datagens
     spec:
       affinity:
         nodeAffinity:
@@ -25,4 +27,4 @@ spec:
                 - "true"
       containers:
       - name: patchmgr
-        image: ubuntu:4.2.1
+        image: busybox
