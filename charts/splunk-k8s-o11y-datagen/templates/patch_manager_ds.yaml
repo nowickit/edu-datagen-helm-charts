@@ -27,4 +27,11 @@ spec:
                 - "true"
       containers:
       - name: patchmgr
+        args:
+        - sh
+        - -c
+        - while true; do sleep 20000 ; done
         image: busybox
+        resources:
+          requests:
+            cpu: "2"
