@@ -28,9 +28,9 @@ spec:
                 values:
                 - "true"
       containers:
-        - name: apache-httpd:no_version
-        image: httpd
-        imagePullPolicy: IfNotPresent
+        - name: apache-httpd
+          image: httpd:no_version
+          imagePullPolicy: IfNotPresent
   strategy:
     type: Recreate
 
