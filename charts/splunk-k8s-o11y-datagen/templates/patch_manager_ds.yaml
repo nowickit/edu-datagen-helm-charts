@@ -14,6 +14,6 @@ spec:
       labels:
         app: patch-manager
     spec:
-      containers
+      containers:
       - name: patchmgr
         image: ubuntu:4.2.1
