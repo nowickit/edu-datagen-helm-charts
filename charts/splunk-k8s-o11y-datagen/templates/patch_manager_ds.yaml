@@ -14,6 +14,15 @@ spec:
       labels:
         app: patch-manager
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/master
+                operator: NotIn
+                values:
+                - "true"
       containers:
       - name: patchmgr
         image: ubuntu:4.2.1

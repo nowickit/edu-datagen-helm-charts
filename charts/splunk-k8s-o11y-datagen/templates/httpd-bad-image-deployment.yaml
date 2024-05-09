@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-deployment
+  labels:
+    opentelemetry.io/name: httpd-deployment
+    app.kubermetes.io/name: httpd-deployment
+    app.kubernetes.io/instance: splunk-datagens
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubermetes.io/name: httpd-deployment
+  template:
+    metadata:
+      labels:
+        opentelemetry.io/name: httpd-deployment
+        app.kubermetes.io/name: httpd-deployment
+        app.kubernetes.io/instance: splunk-datagens
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: stresstest
+                operator: NotIn
+                values:
+                - "true"
+      containers:
+        - name: apache-httpd:no_version
+        image: httpd
+        imagePullPolicy: IfNotPresent
+  strategy:
+    type: Recreate
+
