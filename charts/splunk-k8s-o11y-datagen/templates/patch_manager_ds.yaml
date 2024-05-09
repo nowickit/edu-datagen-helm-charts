@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: patch-manager
+  namespace: default
+  labels:
+    app: patch-manager
+spec:
+  selector:
+    matchLabels:
+      app: patch-manager
+  template:
+    metadata:
+      labels:
+        app: patch-manager
+    spec:
+      containers
+      - name: patchmgr
+        image: ubuntu:4.2.1
