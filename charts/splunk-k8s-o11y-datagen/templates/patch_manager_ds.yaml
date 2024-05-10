@@ -32,6 +32,6 @@ spec:
         - -c
         - while true; do sleep 20000 ; done
         image: busybox
-        resources:
-          requests:
-            cpu: "2"
+#        resources:
+#         requests:
+#           cpu: "2"
