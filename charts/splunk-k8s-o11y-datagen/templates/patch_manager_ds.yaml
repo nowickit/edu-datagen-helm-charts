@@ -16,22 +16,21 @@ spec:
         app: patch-manager
         app.kubernetes.io/instance: splunk-datagens
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: node-role.kubernetes.io/master
-                operator: NotIn
-                values:
-                - "true"
+      serviceAccountName: cleaner
       containers:
       - name: patchmgr
         args:
         - sh
         - -c
-        - while true; do sleep 20000 ; done
-        image: busybox
+        - "SSD_LABEL=$(kubectl get node $NODE_NAME -o jsonpath=\"{.metadata.labels.disktype}\") ; while [ -z \"$SSD_LABEL\" ] ; do sleep 20000 ; done ; echo {\"severity\" : \"error\", \"message\" : \"Cannot run on node with given disktype; Failing\"}"
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+ 
+        image: portainer/kubectl-shell:latest
 #        resources:
 #         requests:
 #           cpu: "2"
