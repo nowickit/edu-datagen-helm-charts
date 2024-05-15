@@ -19,8 +19,7 @@ spec:
         app.kubernetes.io/component: frontendclicker
     spec:
       dnsPolicy: ClusterFirst
-      serviceAccount: astroshop-edu-o11y
-      serviceAccountName: astroshop-edu-o11y
+      serviceAccountName: splunk-datagens
       terminationGracePeriodSeconds: 30
       restartPolicy: Always
       containers:
@@ -35,7 +34,7 @@ spec:
           - name: CLICKER_INTERVAL
             value: "1"
           - name: SHOP_URL
-            value: http://astroshop-edu-o11y-frontend:8080
+            value: http://$(O11Y_DEMO_FRONTEND_SERVICE_HOST):$(O11Y_DEMO_FRONTEND_SERVICE_PORT)
           resources:
             limits:
               memory: 768Mi
