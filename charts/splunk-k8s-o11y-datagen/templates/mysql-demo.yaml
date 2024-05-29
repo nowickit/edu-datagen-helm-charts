@@ -1,0 +1,49 @@
+# mysql-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    app.kubernetes.io/instance: splunk-datagens
+    app.kubernetes.io/component: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+        app.kubernetes.io/instance: splunk-datagens
+        app.kubernetes.io/component: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+
+      - name: makedata
+        image: mysql:5.7
+        command: ["/bin/sh", "-c", "while ! mysql -h 127.0.0.1 -P 3306 mysql -e 'show tables;'; do sleep 5; done ; mysql -h 127.0.0.1 -P 3306 mysql -e \"CREATE TABLE demo (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    value INTEGER NOT NULL
+);
+
+INSERT INTO demo (name, value) VALUES
+('Alice', 10),
+('Bob', 20),
+('Charlie', 30);\" ; sleep 9000000"]
+
+      volumes:
+      - name: mysql-persistent-storage
+        emptyDir: {}

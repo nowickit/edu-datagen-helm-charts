@@ -22,7 +22,7 @@ spec:
         args:
         - sh
         - -c
-        - "SSD_LABEL=$(kubectl get node $NODE_NAME -o jsonpath=\"{.metadata.labels.disktype}\") ; while [ -z \"$SSD_LABEL\" ] ; do sleep 20000 ; done ; echo {\"severity\" : \"error\", \"message\" : \"Cannot run on node with given disktype; Failing\"}"
+        - "SSD_LABEL=$(kubectl get node $NODE_NAME -o jsonpath=\"{.metadata.labels.disktype}\") ; while [ -z \"$SSD_LABEL\" ] ; do echo Checking for pods that need patching; echo None found. ; sleep 200 ; done ; echo {\"severity\" : \"error\", \"message\" : \"Cannot run on node with given disktype; Failing\"}"
         env:
         - name: NODE_NAME
           valueFrom:
