@@ -30,8 +30,8 @@ spec:
         image: colinianking/stress-ng
         command:
           - sh
-          - -cx 
-          - "while true ; do stress-ng --cpu 40 -v -t $(shuf -i 300-600 -n 1) ; sleep $(shuf -i 400-800 -n 1); done"
+          - -c 
+          - "while true ; do stress-ng --cpu 40 -t $(shuf -i 300-600 -n 1) ; sleep $(shuf -i 400-800 -n 1); done"
         imagePullPolicy: IfNotPresent
       dnsPolicy: ClusterFirst
       nodeSelector:
