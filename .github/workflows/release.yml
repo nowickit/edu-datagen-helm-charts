@@ -22,6 +22,13 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
+      - name: Create Dynamic Dummy File to trigger chart rebuild
+        run: |
+          echo "Triggering release at $(date)" > charts/force-release.txt
+          git add charts/force-release.txt
+          git commit -m "Update dummy file to trigger release" || echo "No changes to commit"
+          git push || echo "No changes to push"
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         env:
