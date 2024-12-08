@@ -24,8 +24,9 @@ jobs:
 
       - name: Create Dynamic Dummy File to trigger chart rebuild
         run: |
-          echo "Triggering release at $(date)" > charts/force-release.txt
-          git add charts/force-release.txt
+          DUMMY_FILE="charts/splunk-k8s-o11y-datagen/templates/force-release.yaml"
+          echo "#Triggering release at $(date)" > "$DUMMY_FILE"
+          git add "$DUMMY_FILE"
           git commit -m "Update dummy file to trigger release" || echo "No changes to commit"
           git push || echo "No changes to push"
 
