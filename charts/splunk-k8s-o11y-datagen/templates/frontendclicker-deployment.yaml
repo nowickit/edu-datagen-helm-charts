@@ -24,7 +24,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: frontendclicker
-          image: ghcr.io/alexpsplunk/astroshop:1.8.0-edu-o11y-frontendclicker
+          image: ghcr.io/nowickit/edu-astroshop:1.11.1-frontendclicker
           imagePullPolicy: Always
           env:
           - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
